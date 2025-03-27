@@ -59,10 +59,10 @@ char* read_file(const char* filename) {
 
 void build_jump_map(const char* code, int* subs, int* jumps) {
 	int stack[STACK_SIZE], stk = 0, routine = 0;
-	long long index = 0;
+	long long index = -1;
 
 	char c;
-	while ((c = code[index]) != '\0') {
+	while ((c = code[++index]) != '\0') {
 		if (c == '{' || c == '[' || c == '(') {
 			if (stk >= STACK_SIZE) {
 				fprintf(stderr, "Error: Stack overflow while building jump map\n");
@@ -81,7 +81,6 @@ void build_jump_map(const char* code, int* subs, int* jumps) {
 			jumps[start] = index;
 			jumps[index] = start;
 		}
-		index++;
 	}
 	if (stk != 0) {
 		fprintf(stderr, "Error: Unmatched bracket in code\n");
