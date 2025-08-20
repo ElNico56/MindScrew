@@ -1,11 +1,11 @@
-/* brainfuck.c */
+// brainfuck.c
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define TAPE_SIZE 65536
-#define STACK_SIZE 256
+#define STACK_SIZE 65536
 
 char* read_file(const char* filename);
 void build_jump_map(const char* code, int* jumps);
@@ -27,6 +27,8 @@ int main(int argc, char* argv[]) {
 	if (jumps) free(jumps);
 	return 0;
 }
+
+// definitions
 
 char* read_file(const char* filename) {
 	FILE* file = fopen(filename, "r");
@@ -54,7 +56,7 @@ char* read_file(const char* filename) {
 
 void build_jump_map(const char* code, int* jumps) {
 	int stack[STACK_SIZE], stk = 0;
-	long long index = -1;
+	size_t index = -1;
 
 	while (code[++index] != '\0') {
 		if (code[index] == '[') {
