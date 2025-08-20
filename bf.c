@@ -10,7 +10,7 @@
 char* read_file(const char* filename);
 void sanitize_code(char* code);
 void build_jump_map(const char* code, int* jumps);
-void execute_program(const char* code, int* jumps);
+void execute_program(const char* code, const int* jumps);
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {
