@@ -60,8 +60,10 @@ void sanitize_code(char* code) {
 	size_t w = 0;
 	for (size_t r = 0; code[r] != '\0'; r++) {
 		switch (code[r]) {
-		case '>': case '<': case '+': case '-':
-		case '.': case ',': case '[': case ']':
+		case '>': case '<':
+		case '+': case '-':
+		case '.': case ',':
+		case '[': case ']':
 			code[w++] = code[r];
 			break;
 		default:
