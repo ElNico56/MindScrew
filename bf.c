@@ -8,6 +8,7 @@
 #define STACK_SIZE 65536
 
 char* read_file(const char* filename);
+void sanitize_code(char* code);
 void build_jump_map(const char* code, int* jumps);
 void execute_program(const char* code, int* jumps);
 
@@ -20,6 +21,7 @@ int main(int argc, char* argv[]) {
 	char* code = read_file(argv[1]);
 	int* jumps = calloc(strlen(code), sizeof(int));
 
+	sanitize_code(code);
 	build_jump_map(code, jumps);
 	execute_program(code, jumps);
 
@@ -52,6 +54,21 @@ char* read_file(const char* filename) {
 	fclose(file);
 	code[file_size] = '\0';
 	return code;
+}
+
+void sanitize_code(char* code) {
+	size_t w = 0;
+	for (size_t r = 0; code[r] != '\0'; r++) {
+		switch (code[r]) {
+		case '>': case '<': case '+': case '-':
+		case '.': case ',': case '[': case ']':
+			code[w++] = code[r];
+			break;
+		default:
+			break;
+		}
+	}
+	code[w] = '\0';
 }
 
 void build_jump_map(const char* code, int* jumps) {
