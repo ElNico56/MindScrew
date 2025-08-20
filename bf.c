@@ -100,7 +100,7 @@ void build_jump_map(const char* code, int* jumps) {
 	}
 }
 
-void execute_program(const char* code, int* jumps) {
+void execute_program(const char* code, const int* jumps) {
 	unsigned char tape[TAPE_SIZE], * ptr = tape;
 	size_t pc = -1;
 	while (code[++pc] != '\0') {
